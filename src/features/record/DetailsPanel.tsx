@@ -63,7 +63,7 @@ function DateEditor({ r }: { r: RecordView }) {
   if (!editing) {
     return (
       <button className="liner-btn" onClick={() => setEditing(true)}>
-        {r.local?.manualDate ? 'Change date' : 'Add exact release date'}
+        {r.local?.manualDate ? 'Change date' : r.original?.date.day ? 'Correct the date' : 'Add exact release date'}
       </button>
     );
   }

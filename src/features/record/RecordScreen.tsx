@@ -86,7 +86,7 @@ export default function RecordScreen({ instanceId, lib }: { instanceId: number; 
       </header>
 
       <div className="stage-area" ref={area}>
-        {tex && <Inspector tex={tex} reduced={reduced} controlsRef={controls} onStage={(st) => { setStage(st); if (st === 'jacket') setDiscSide('A'); }} onReady={onReady} />}
+        {tex && <Inspector tex={tex} light={theme === 'light'} reduced={reduced} controlsRef={controls} onStage={(st) => { setStage(st); if (st === 'jacket') setDiscSide('A'); }} onReady={onReady} />}
         {box && (
           <motion.div
             layoutId={`cover-${r.instanceId}`}
@@ -104,14 +104,18 @@ export default function RecordScreen({ instanceId, lib }: { instanceId: number; 
       </div>
 
       <div className="inspector-controls" role="toolbar" aria-label="Inspect the record">
-        {reduced && <button className="icon-btn raised" onClick={() => controls.current?.turn(-1)} aria-label="Turn left"><RotateCcw size={20} aria-hidden /></button>}
+        {reduced && stage === 'jacket' && (
+          <div className="turn-row">
+            <button className="icon-btn raised" onClick={() => controls.current?.turn(-1)} aria-label="Turn left"><RotateCcw size={20} aria-hidden /></button>
+            <button className="icon-btn raised" onClick={() => controls.current?.turn(1)} aria-label="Turn right"><RotateCw size={20} aria-hidden /></button>
+          </div>
+        )}
         <button className="btn" onClick={() => { if (stage === 'disc') setDiscSide((d) => (d === 'A' ? 'B' : 'A')); controls.current?.flip(); }}>
           <RefreshCw size={18} aria-hidden /> {stage === 'disc' ? `Flip to side ${discSide === 'A' ? 'B' : 'A'}` : 'Flip over'}
         </button>
         <button className="btn primary" onClick={() => { setDiscSide('A'); controls.current?.toggleRecord(); }}>
           {stage === 'disc' ? <><Undo2 size={18} aria-hidden /> Put back</> : <><Disc3 size={18} aria-hidden /> Take out record</>}
         </button>
-        {reduced && <button className="icon-btn raised" onClick={() => controls.current?.turn(1)} aria-label="Turn right"><RotateCw size={20} aria-hidden /></button>}
       </div>
 
       <DetailsSheet r={r} lib={lib} />

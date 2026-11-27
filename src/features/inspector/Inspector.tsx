@@ -53,8 +53,8 @@ function cameraDistance(width: number, height: number): number {
   return JACKET.size / (f * 2 * Math.tan(THREE.MathUtils.degToRad(FOV / 2)));
 }
 
-function Scene({ tex, phys, onStage, onReady }: {
-  tex: InspectorTextures; phys: MutableRefObject<Phys>; onStage: (s: Stage) => void; onReady: () => void;
+function Scene({ tex, phys, onStage, onReady, shadowOpacity }: {
+  tex: InspectorTextures; shadowOpacity: number; phys: MutableRefObject<Phys>; onStage: (s: Stage) => void; onReady: () => void;
 }) {
   const { camera, size, invalidate, gl } = useThree();
   const jacket = useRef<THREE.Group>(null);
@@ -176,7 +176,7 @@ function Scene({ tex, phys, onStage, onReady }: {
 
       <mesh position={[0, 0, -0.5]} receiveShadow>
         <planeGeometry args={[8, 8]} />
-        <shadowMaterial transparent opacity={0.22} />
+        <shadowMaterial transparent opacity={shadowOpacity} />
       </mesh>
 
       <group ref={jacket}>
@@ -233,8 +233,9 @@ function Scene({ tex, phys, onStage, onReady }: {
   );
 }
 
-export function Inspector({ tex, reduced, controlsRef, onStage, onReady, onTapEmpty }: {
+export function Inspector({ tex, reduced, controlsRef, onStage, onReady, onTapEmpty, light = false }: {
   tex: InspectorTextures;
+  light?: boolean;
   reduced: boolean;
   controlsRef: MutableRefObject<InspectorControls | null>;
   onStage: (s: Stage) => void;
@@ -363,7 +364,7 @@ export function Inspector({ tex, reduced, controlsRef, onStage, onReady, onTapEm
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', toneMapping: THREE.NeutralToneMapping }}
         aria-hidden
       >
-        <Scene tex={tex} phys={phys} onStage={onStage} onReady={onReady} />
+        <Scene tex={tex} phys={phys} onStage={onStage} onReady={onReady} shadowOpacity={light ? 0.12 : 0.22} />
       </Canvas>
     </div>
   );

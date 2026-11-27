@@ -1,6 +1,5 @@
 import { App as CapApp } from '@capacitor/app';
-import { Capacitor } from '@capacitor/core';
-import { StatusBar, Style } from '@capacitor/status-bar';
+import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core';
 import { AnimatePresence, LayoutGroup, MotionConfig } from 'framer-motion';
 import { lazy, Suspense, useEffect, useMemo, useRef } from 'react';
 import { useLibrary } from './db/records';
@@ -33,7 +32,7 @@ export function App() {
     const bg = theme === 'light' ? '#E9E2D2' : '#2A2D31';
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg);
     if (Capacitor.isNativePlatform()) {
-      void StatusBar.setStyle({ style: theme === 'light' ? Style.Light : Style.Dark }).catch(() => undefined);
+      void SystemBars.setStyle({ style: theme === 'light' ? SystemBarsStyle.Light : SystemBarsStyle.Dark }).catch(() => undefined);
     }
   }, [theme]);
 

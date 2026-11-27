@@ -88,3 +88,4 @@
 .role-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { min-height: 44px; min-width: 64px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-sunken); cursor: pointer; }
 .chip[aria-checked='true'] { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+.turn-row { width: 100%; display: flex; justify-content: center; gap: 16px; }

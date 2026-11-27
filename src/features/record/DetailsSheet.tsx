@@ -13,7 +13,7 @@ export const PEEK = 148;
 export function DetailsSheet({ r, lib }: { r: RecordView; lib: Library }) {
   const [snap, setSnap] = useState<Snap>('peek');
   const [vh, setVh] = useState(() => window.innerHeight);
-  const y = useMotionValue(0);
+  const y = useMotionValue(window.innerHeight - 56 - PEEK); // start closed, so the sheet never flashes open
   const controls = useDragControls();
   const scroller = useRef<HTMLDivElement>(null);
   const H = vh - 56;

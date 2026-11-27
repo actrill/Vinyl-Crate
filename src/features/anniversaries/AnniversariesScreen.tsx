@@ -28,7 +28,9 @@ export function AnniversariesScreen({ lib }: { lib: Library }) {
     const byRelease = new Map<number, RecordView>();
     for (const r of lib.records) if (!byRelease.has(r.releaseId)) byRelease.set(r.releaseId, r);
     const cands = [...byRelease.values()].filter((r) => r.original).map((r) => ({ releaseId: r.releaseId, date: r.original!.date }));
-    return { upcoming: upcomingAnniversaries(cands, new Date(), { hour: 0 }), yearOnly: turningThisYear(cands, year), byRelease };
+    const startOfToday = new Date(); startOfToday.setHours(0, 0, 0, 0);
+    // Start just before midnight so today's anniversaries lead the list.
+    return { upcoming: upcomingAnniversaries(cands, new Date(startOfToday.getTime() - 1), { hour: 0 }), yearOnly: turningThisYear(cands, year), byRelease };
   }, [lib.records, year]);
 
   return (
@@ -43,7 +45,7 @@ export function AnniversariesScreen({ lib }: { lib: Library }) {
       <ul className="list">
         {upcoming.map((o) => (
           <Item key={`${o.releaseId}-${o.at.getFullYear()}`} r={byRelease.get(o.releaseId)!} milestone={o.milestone}
-            line={`${o.at.toLocaleDateString(undefined, { month: 'long', day: 'numeric' })} · turns ${o.age}${o.milestone ? ' · milestone' : ''}`} />
+            line={`${o.at.toDateString() === new Date().toDateString() ? 'Today' : o.at.toLocaleDateString(undefined, { month: 'long', day: 'numeric' })} · turns ${o.age}${o.milestone ? ' · milestone' : ''}`} />
         ))}
       </ul>
 

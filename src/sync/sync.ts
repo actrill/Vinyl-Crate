@@ -214,11 +214,3 @@ export async function refreshPrices(
   await db.prices.put(row);
   return row;
 }
-
-/** Re-fetch one release's details (e.g. from the record screen). */
-export async function refreshRelease(client: DiscogsClient, releaseId: number): Promise<void> {
-  const currency = (await getMeta('currency')) ?? 'USD';
-  const rel = await client.release(releaseId, currency, 'high');
-  await db.releases.put({ id: releaseId, data: rel, fetchedAt: Date.now() });
-  void cacheReleaseImages(rel);
-}

@@ -11,6 +11,8 @@ const config: CapacitorConfig = {
     allowMixedContent: false,
   },
   plugins: {
+    // Edge-to-edge with safe-area insets exposed to CSS as --safe-area-inset-*.
+    SystemBars: { insetsHandling: 'css', initialViewportFitValueHint: 'cover', style: 'DARK' },
     CapacitorHttp: { enabled: false }, // we call CapacitorHttp explicitly; leave fetch alone
     LocalNotifications: {
       smallIcon: 'ic_stat_crate',
