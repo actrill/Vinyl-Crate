@@ -1,0 +1,16 @@
+.settings .card { padding: 4px 16px; }
+.settings .card.stack { padding: 16px; }
+.setting-row { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 8px 0; border-bottom: 1px solid var(--line); width: 100%; text-align: left; }
+.setting-row:last-child { border-bottom: 0; }
+.setting-row[aria-disabled='true'] { opacity: 0.5; }
+.time-input { width: auto; min-width: 120px; }
+.segmented { display: flex; background: var(--bg-sunken); border-radius: 999px; padding: 3px; }
+.segmented button { min-height: 42px; min-width: 72px; border: 0; border-radius: 999px; background: none; cursor: pointer; color: var(--text-2); }
+.segmented button[aria-checked='true'] { background: var(--bg); color: var(--text); }
+.notice { margin-top: 10px; color: var(--text); }
+.about { margin-top: 32px; text-align: center; }
+.sub-header { display: flex; align-items: center; gap: 4px; margin-left: -12px; }
+.sort-row { display: flex; flex-direction: column; gap: 6px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.sort-row .row { gap: 8px; }
+.sort-row .input { min-height: 44px; }
+.custom-dot { color: var(--accent); }
